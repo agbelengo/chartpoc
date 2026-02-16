@@ -75,4 +75,21 @@ table {
   tr:hover {
     background-color: #f8fafc;
   }
+
+  .descr-col {
+    /* Visible by default on desktop */
+    display: table-cell;
+  }
+
+  @media (max-width: 600px) {
+    .descr-col {
+      /* Completely hidden on mobile */
+      display: none;
+    }
+
+    th, td {
+      padding: 8px; // Slightly tighter padding for small screens
+      font-size: 0.8rem;
+    }
+ }
 }

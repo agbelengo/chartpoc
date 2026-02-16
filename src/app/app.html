@@ -36,7 +36,7 @@
       <tr>
         <th>Date</th>
         <th>Category</th>
-        <th>Description</th>
+        <th class="descr-col">Description</th> <th>Amount</th>
         <th>Amount</th>
       </tr>
     </thead>
@@ -45,7 +45,7 @@
         <tr>
           <td>{{ t.date | date:'shortDate' }}</td>
           <td>{{ t.category }}</td>
-          <td>{{ t.description }}</td>
+          <td class="descr-col">{{ t.description }}</td>
           <td>{{ t.amount | currency }}</td>
         </tr>
       }
