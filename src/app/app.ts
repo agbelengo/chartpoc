@@ -18,7 +18,7 @@ export class App {
  // protected readonly title = signal('chartpoc');
  // New: Track which card is clicked
   selectedCard = signal<string | null>(null);
-
+  selectedCategory = signal<string | null>(null); // New!
  
   // 1. Data for the Bar Chart (Card Totals)
   public barChartData: ChartData<'bar'> = {
@@ -52,12 +52,18 @@ export class App {
     }
   };
 
- // New: Filtered transactions list
+// Multi-filter Logic: Combines Card and Category filters
   filteredTransactions = computed(() => {
     const card = this.selectedCard();
-    const all = this.cardService.getTransactions()();
-    return card ? all.filter(t => t.card === card) : all;
+    const cat = this.selectedCategory();
+    let data = this.cardService.getTransactions()();
+
+    if (card) data = data.filter(t => t.card === card);
+    if (cat) data = data.filter(t => t.category === cat);
+    
+    return data;
   });
+
 
   // New: Handler for chart clicks
   onChartClick({ event, active }: { event?: any, active?: any[] }): void {
@@ -69,5 +75,34 @@ export class App {
       this.selectedCard.update(current => current === cardLabel ? null : cardLabel);
     }
   }
+
+  // Calculate the sum of the filtered data
+  tableTotal = computed(() => {
+    return this.filteredTransactions().reduce((sum, t) => sum + t.amount, 0);
+  });
+
+  // Handle Card Bar Clicks
+  onCardClick({ active }: { active?: any[] }): void {
+    if (active && active.length > 0) {
+      const index = active[0].index;
+      const label = this.barChartData.labels?.[index] as string;
+      this.selectedCard.update(curr => curr === label ? null : label);
+    }
+  }
+
+  // Handle Category Doughnut Clicks
+  onCategoryClick({ active }: { active?: any[] }): void {
+    if (active && active.length > 0) {
+      const index = active[0].index;
+      const label = this.doughnutChartData.labels?.[index] as string;
+      this.selectedCategory.update(curr => curr === label ? null : label);
+    }
+  }
+
+  clearFilters() {
+    this.selectedCard.set(null);
+    this.selectedCategory.set(null);
+  }
+  
 
 }

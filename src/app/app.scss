@@ -91,5 +91,45 @@ table {
       padding: 8px; // Slightly tighter padding for small screens
       font-size: 0.8rem;
     }
- }
+}
+
+tfoot {
+  tr {
+    background-color: #f8fafc;
+    border-top: 2px solid #e2e8f0;
+  }
+
+  td {
+    font-weight: 700;
+    color: #1e293b;
+    padding: 16px 12px;
+  }
+
+  .total-label {
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: #64748b;
+  }
+
+  .total-amount {
+    font-size: 1.1rem;
+    color: #1e3a8a; // Primary blue to make it pop
+  }
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h3 span {
+    font-size: 0.9rem;
+    color: #10b981; // Green for active filters
+    margin-left: 8px;
+  }
+}
+
 }
