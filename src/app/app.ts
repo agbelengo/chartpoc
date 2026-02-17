@@ -1,4 +1,4 @@
-import { Component, signal, inject, computed } from '@angular/core';
+import { Component, signal, inject, computed, effect } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CreditCardService } from './services/credit-card.service';
@@ -8,18 +8,62 @@ import  { ChartConfiguration, ChartData } from 'chart.js';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, BaseChartDirective],
+  imports: [CommonModule, BaseChartDirective],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
   private cardService = inject(CreditCardService);
 
+  // Pagination Signals
+  currentPage = signal(1);
+  pageSize = signal(10);
+  pageSizeOptions = [5, 10, 25];
+
  // protected readonly title = signal('chartpoc');
  // New: Track which card is clicked
   selectedCard = signal<string | null>(null);
   selectedCategory = signal<string | null>(null); // New!
  
+
+  // Multi-filter Logic: Combines Card and Category filters
+  filteredTransactions = computed(() => {
+    const card = this.selectedCard();
+    const cat = this.selectedCategory();
+    let data = this.cardService.getTransactions()();
+
+    if (card) data = data.filter(t => t.card === card);
+    if (cat) data = data.filter(t => t.category === cat);
+    
+    return data;
+  });
+
+// 2. NEW: Slice the data for the current page
+  paginatedTransactions = computed(() => {
+    const startIndex = (this.currentPage() - 1) * this.pageSize();
+    const endIndex = startIndex + this.pageSize();
+    return this.filteredTransactions().slice(startIndex, endIndex);
+  });
+
+  // 3. NEW: Calculate total pages
+  totalPages = computed(() => Math.ceil(this.filteredTransactions().length / this.pageSize()));
+
+  // 4. NEW: Reset page to 1 whenever filters change
+  constructor() {
+    effect(() => {
+      this.selectedCard();
+      this.selectedCategory();
+      this.currentPage.set(1); // Jump back to page 1 if we filter the data
+    }, { allowSignalWrites: true });
+  }
+// Helper methods for the UI
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPage.set(page);
+    }
+  }
+
+
   // 1. Data for the Bar Chart (Card Totals)
   public barChartData: ChartData<'bar'> = {
     labels: this.cardService.cardTotals().map(d => d.label),
@@ -52,17 +96,7 @@ export class App {
     }
   };
 
-// Multi-filter Logic: Combines Card and Category filters
-  filteredTransactions = computed(() => {
-    const card = this.selectedCard();
-    const cat = this.selectedCategory();
-    let data = this.cardService.getTransactions()();
 
-    if (card) data = data.filter(t => t.card === card);
-    if (cat) data = data.filter(t => t.category === cat);
-    
-    return data;
-  });
 
 
   // New: Handler for chart clicks
@@ -75,6 +109,18 @@ export class App {
       this.selectedCard.update(current => current === cardLabel ? null : cardLabel);
     }
   }
+
+  onPageSizeChange(event: Event) {
+  // 1. Get the HTML element from the event
+  const selectElement = event.target as HTMLSelectElement;
+  
+  // 2. Extract the new number (converting string "5" to number 5)
+  const newSize = Number(selectElement.value);
+  
+  // 3. Update your signals
+  this.pageSize.set(newSize);
+  this.currentPage.set(1); 
+}
 
   // Calculate the sum of the filtered data
   tableTotal = computed(() => {

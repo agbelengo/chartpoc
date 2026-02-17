@@ -3,7 +3,10 @@
   background-color: #f1f5f9;
   min-height: 100vh;
 
-  h1 { color: #1e293b; margin-bottom: 2rem; }
+  h1 {
+    color: #1e293b;
+    margin-bottom: 2rem;
+  }
 }
 
 .chart-grid {
@@ -17,8 +20,12 @@
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  
-  h3 { margin-top: 0; color: #64748b; font-size: 1rem; }
+
+  h3 {
+    margin-top: 0;
+    color: #64748b;
+    font-size: 1rem;
+  }
 }
 
 .canvas-wrapper {
@@ -39,7 +46,7 @@
     justify-content: space-between;
     align-items: center;
     color: #1e293b;
-    
+
     button {
       background: #f1f5f9;
       border: none;
@@ -47,7 +54,10 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 0.8rem;
-      &:hover { background: #e2e8f0; }
+
+      &:hover {
+        background: #e2e8f0;
+      }
     }
   }
 }
@@ -87,49 +97,104 @@ table {
       display: none;
     }
 
-    th, td {
+    th,
+    td {
       padding: 8px; // Slightly tighter padding for small screens
       font-size: 0.8rem;
     }
-}
-
-tfoot {
-  tr {
-    background-color: #f8fafc;
-    border-top: 2px solid #e2e8f0;
   }
 
-  td {
-    font-weight: 700;
-    color: #1e293b;
-    padding: 16px 12px;
+  tfoot {
+    tr {
+      background-color: #f8fafc;
+      border-top: 2px solid #e2e8f0;
+    }
+
+    td {
+      font-weight: 700;
+      color: #1e293b;
+      padding: 16px 12px;
+    }
+
+    .total-label {
+      text-align: right;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: #64748b;
+    }
+
+    .total-amount {
+      font-size: 1.1rem;
+      color: #1e3a8a; // Primary blue to make it pop
+    }
   }
 
-  .total-label {
-    text-align: right;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    color: #64748b;
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 span {
+      font-size: 0.9rem;
+      color: #10b981; // Green for active filters
+      margin-left: 8px;
+    }
   }
 
-  .total-amount {
-    font-size: 1.1rem;
-    color: #1e3a8a; // Primary blue to make it pop
-  }
-}
-
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-
-  h3 span {
+  .pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
     font-size: 0.9rem;
-    color: #10b981; // Green for active filters
-    margin-left: 8px;
+
+    .page-size select {
+      margin-left: 0.5rem;
+      padding: 4px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+    }
+
+    .page-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      button {
+        padding: 4px 12px;
+        border-radius: 4px;
+        border: 1px solid #cbd5e1;
+        background: white;
+        cursor: pointer;
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        &:not(:disabled):hover {
+          background: #e2e8f0;
+        }
+      }
+    }
+
+    .summary-chip {
+      background: #1e3a8a;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
   }
-}
+
+  // Ensure the table doesn't jump in height when switching pages
+  table {
+    min-height: 200px;
+  }
 
 }
