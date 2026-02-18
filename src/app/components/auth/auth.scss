@@ -1,0 +1,122 @@
+.auth-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  color: #1e293b;
+
+  h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+  }
+
+  p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.login-form {
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #64748b;
+    }
+
+    input {
+      padding: 0.75rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #1e3a8a;
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+      }
+    }
+  }
+}
+
+.user-profile {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+
+    h2 {
+      font-size: 1.125rem;
+      margin: 0;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .cards-section {
+    h3 {
+      font-size: 1rem;
+      color: #64748b;
+      margin-bottom: 1rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 2px dashed #e2e8f0;
+      color: #94a3b8;
+    }
+  }
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+
+  &.btn-primary {
+    background: #1e3a8a;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: #1e40af;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &.btn-secondary {
+    width: auto;
+    padding: 0.5rem 1rem;
+    background: #f1f5f9;
+    color: #1e293b;
+    font-size: 0.875rem;
+
+    &:hover {
+      background: #e2e8f0;
+    }
+  }
+}

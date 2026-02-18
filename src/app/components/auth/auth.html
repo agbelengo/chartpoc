@@ -1,0 +1,43 @@
+<div class="auth-container">
+  @if (user()) {
+    <div class="user-profile">
+      <div class="header">
+        <h2>Welcome, {{ user()?.email }}</h2>
+        <button (click)="logout()" class="btn-secondary">Sign Out</button>
+      </div>
+
+      <div class="cards-section">
+        <h3>Your Cards</h3>
+        @if (cards().length > 0) {
+          <ul class="card-list">
+            @for (card of cards(); track card.id) {
+              <li>{{ card.name }}</li>
+            }
+          </ul>
+        } @else {
+          <p class="empty-state">No cards found. Start by adding one!</p>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="login-form">
+      <h2>Sign In</h2>
+      <p>Enter your email to receive a magic link.</p>
+      
+      <div class="input-group">
+        <label for="email">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="name@example.com" 
+          (input)="updateEmail($event)"
+          [value]="email()"
+        />
+      </div>
+
+      <button (click)="login()" [disabled]="!email()" class="btn-primary">
+        Send Magic Link
+      </button>
+    </div>
+  }
+</div>

@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { CreditCardService } from './services/credit-card.service';
 import { BaseChartDirective } from 'ng2-charts';
 import  { ChartConfiguration, ChartData } from 'chart.js';
+import { AuthComponent } from './components/auth/auth';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, BaseChartDirective],
+  imports: [CommonModule, BaseChartDirective, AuthComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
