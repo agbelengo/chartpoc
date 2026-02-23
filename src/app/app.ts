@@ -5,11 +5,12 @@ import { CreditCardService } from './services/credit-card.service';
 import { BaseChartDirective } from 'ng2-charts';
 import  { ChartConfiguration, ChartData } from 'chart.js';
 import { AuthComponent } from './components/auth/auth';
+import { CardManagerComponent } from './components/card-manager/card-manager';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, BaseChartDirective, AuthComponent],
+  imports: [CommonModule, BaseChartDirective, AuthComponent, CardManagerComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

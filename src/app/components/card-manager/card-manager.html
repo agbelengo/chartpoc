@@ -1,0 +1,40 @@
+<div class="card-manager-container">
+  <section class="form-section">
+    <h3>Add New Card</h3>
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+      <div class="input-grid">
+        <div class="input-group">
+          <label for="card_name">Card Name</label>
+          <input id="card_name" type="text" formControlName="card_name" placeholder="Personal Platinum">
+        </div>
+        <div class="input-group">
+          <label for="issuer">Issuer</label>
+          <input id="issuer" type="text" formControlName="issuer" placeholder="Amex / Visa">
+        </div>
+        <div class="input-group">
+          <label for="last_four">Last 4 Digits</label>
+          <input id="last_four" type="text" formControlName="last_four" placeholder="1234" maxlength="4">
+        </div>
+      </div>
+      <button type="submit" [disabled]="cardForm.invalid" class="btn-primary">Add Card</button>
+    </form>
+  </section>
+
+  <section class="cards-display">
+    <h3>Your Virtual Wallet</h3>
+    
+    <div class="cards-grid">
+      @for (card of cards(); track card.id) {
+        <div class="credit-card">
+          <div class="card-issuer">{{ card.issuer }}</div>
+          <div class="card-name">{{ card.card_name }}</div>
+          <div class="card-number">•••• •••• •••• {{ card.last_four }}</div>
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <p>No cards found. Add your first card to get started!</p>
+        </div>
+      }
+    </div>
+  </section>
+</div>
